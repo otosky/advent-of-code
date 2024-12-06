@@ -2,8 +2,17 @@ import scala.io.{BufferedSource, Source}
 import scala.util.Using
 
 
-def getDistanceBetweenLists(l1: Seq[Long], l2: Seq[Long]): Long =
+def getDistance(l1: Seq[Long], l2: Seq[Long]): Long =
   l1.zip(l2).map(_ - _).map(_.abs).sum
+
+def getSimilarity(l1: Seq[Long], l2: Seq[Long]): Long =
+  val countMap: Map[Long, Long] = l2.groupBy(identity).view.mapValues(_.size.toLong).toMap
+
+  val counts = for {
+    left <- l1
+  } yield countMap.getOrElse(left, 0L) * left
+
+  counts.sum
 
 def parse(input: BufferedSource): (Seq[Long], Seq[Long]) =
   val pairs = input
@@ -19,7 +28,11 @@ def parse(input: BufferedSource): (Seq[Long], Seq[Long]) =
   val filePath = "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day1.txt"
   Using(Source.fromFile(filePath)) { source =>
     val (l1, l2) = parse(source)
-    val answer = getDistanceBetweenLists(l1, l2)
-    println(answer) // 3714264
+
+    val distance = getDistance(l1, l2)
+    println(distance) // 3714264
+
+    val similarity = getSimilarity(l1, l2)
+    println(similarity) // 414
   }
 
