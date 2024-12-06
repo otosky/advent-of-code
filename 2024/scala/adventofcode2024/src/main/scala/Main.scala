@@ -19,6 +19,7 @@ def parse(input: BufferedSource): (Seq[Long], Seq[Long]) =
   val filePath = "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day1.txt"
   Using(Source.fromFile(filePath)) { source =>
     val (l1, l2) = parse(source)
-    println(getDistanceBetweenLists(l1, l2)) // 3714264
+    val answer = getDistanceBetweenLists(l1, l2)
+    println(answer) // 3714264
   }
 
