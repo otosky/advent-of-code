@@ -3,7 +3,7 @@ import scala.util.Using
 
 
 def getDistance(l1: Seq[Long], l2: Seq[Long]): Long =
-  l1.zip(l2).map(_ - _).map(_.abs).sum
+  l1.zip(l2).map((left, right) => math.abs(left - right)).sum
 
 def getSimilarity(l1: Seq[Long], l2: Seq[Long]): Long =
   val countMap: Map[Long, Long] = l2.groupBy(identity).view.mapValues(_.size.toLong).toMap
