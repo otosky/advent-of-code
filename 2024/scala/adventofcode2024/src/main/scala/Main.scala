@@ -8,10 +8,7 @@ def getDistance(l1: Seq[Long], l2: Seq[Long]): Long =
 def getSimilarity(l1: Seq[Long], l2: Seq[Long]): Long =
   val countMap: Map[Long, Long] = l2.groupBy(identity).view.mapValues(_.size.toLong).toMap
 
-  val counts = for {
-    left <- l1
-  } yield countMap.getOrElse(left, 0L) * left
-
+  val counts = l1.map(elem => countMap.getOrElse(elem, 0L) * elem)
   counts.sum
 
 def parse(input: BufferedSource): (Seq[Long], Seq[Long]) =
