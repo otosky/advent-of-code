@@ -6,18 +6,18 @@ def parse(input: BufferedSource): Seq[Vector[Int]] =
     .map(line => line.split(" ").map(_.toInt).toVector)
     .toSeq
 
-def isSafe(report: Vector[Int]): Boolean = {
+def isSafe(report: Seq[Int]): Boolean = {
   val diffs = report.sliding(2).map(pair => pair(1) - pair(0))
   if report.head < report.last then diffs.forall(d => 1 <= d && d <= 3) // ascending
   else if report.head > report.last then diffs.forall(d => -3 <= d && d <= -1) // descending
   else false
 }
-def numSafeReports(reports: Seq[Vector[Int]]): Int = reports.count(isSafe)
+def numSafeReports(reports: Seq[Seq[Int]]): Int = reports.count(isSafe)
 
-def dampen(report: Vector[Int]): Seq[Vector[Int]] =
+def dampen(report: Seq[Int]): Seq[Seq[Int]] =
   for i <- LazyList.from(report.indices) yield report.patch(i, Nil, 1) // report.take(i) ++ report.drop(i + 1)
-def isAlmostSafe(report: Vector[Int]): Boolean = dampen(report).exists(isSafe)
-def numSafeDampenedReports(reports: Seq[Vector[Int]]): Int =
+def isAlmostSafe(report: Seq[Int]): Boolean = dampen(report).exists(isSafe)
+def numSafeDampenedReports(reports: Seq[Seq[Int]]): Int =
   reports.count(r => isSafe(r) || isAlmostSafe(r))
 
 @main def solutionDay2(): Unit = {
