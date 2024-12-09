@@ -1,31 +1,24 @@
 import scala.io.{BufferedSource, Source}
 import scala.util.Using
 
-def parse(input: BufferedSource): Seq[Seq[Int]] =
+def parse(input: BufferedSource): Seq[Vector[Int]] =
   input.getLines()
-    .map(line => line.split(" ").map(_.toInt).toSeq)
+    .map(line => line.split(" ").map(_.toInt).toVector)
     .toSeq
 
-def isIncreasing(x: Int, y: Int): Boolean = y > x
-def isDecreasing(x: Int, y: Int): Boolean = x > y
-def isDifferByAtLeastOne(x: Int, y: Int): Boolean = math.abs(x - y) >= 1
-def isDifferByAtMostThree(x: Int, y: Int): Boolean = math.abs(x - y) <= 3
-
-def isReportSafe(report: Seq[Int]): Boolean = {
-  report.sliding(2).foldLeft(true) {
-    case (acc, Seq(current, next)) => acc && isIncreasing(current, next) && (isDifferByAtLeastOne(current, next) && isDifferByAtMostThree(current, next))
-  } || report.sliding(2).foldLeft(true) {
-    case (acc, Seq(current, next)) => acc && isDecreasing(current, next) && (isDifferByAtLeastOne(current, next) && isDifferByAtMostThree(current, next))
-  }
+def isSafe(report: Vector[Int]): Boolean = {
+  val diffs = report.sliding(2).map(pair => pair(1) - pair(0))
+  if report.head < report.last then diffs.forall(d => 1 <= d && d <= 3) // ascending
+  else if report.head > report.last then diffs.forall(d => -3 <= d && d <= -1) // descending
+  else false
 }
-def numSafeReports(reports: Seq[Seq[Int]]): Int = reports.count(isReportSafe)
+def numSafeReports(reports: Seq[Vector[Int]]): Int = reports.count(isSafe)
 
-def isDampenedSafe(report: Seq[Int]): Boolean =
-  report.indices.exists { index =>
-    val newLevels = report.take(index) ++ report.drop(index + 1)
-    isReportSafe(newLevels)
-  }
-def numSafeDampenedReports(reports: Seq[Seq[Int]]): Int = reports.count(r => isReportSafe(r) || isDampenedSafe(r))
+def dampen(report: Vector[Int]): Seq[Vector[Int]] =
+  for i <- LazyList.from(report.indices) yield report.patch(i, Vector(), 1) // report.take(i) ++ report.drop(i + 1)
+def isAlmostSafe(report: Vector[Int]): Boolean = dampen(report).exists(isSafe)
+def numSafeDampenedReports(reports: Seq[Vector[Int]]): Int =
+  reports.count(r => isSafe(r) || isAlmostSafe(r))
 
 @main def solutionDay2(): Unit = {
 
