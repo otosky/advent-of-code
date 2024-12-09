@@ -15,7 +15,7 @@ def isSafe(report: Vector[Int]): Boolean = {
 def numSafeReports(reports: Seq[Vector[Int]]): Int = reports.count(isSafe)
 
 def dampen(report: Vector[Int]): Seq[Vector[Int]] =
-  for i <- LazyList.from(report.indices) yield report.patch(i, Vector(), 1) // report.take(i) ++ report.drop(i + 1)
+  for i <- LazyList.from(report.indices) yield report.patch(i, Nil, 1) // report.take(i) ++ report.drop(i + 1)
 def isAlmostSafe(report: Vector[Int]): Boolean = dampen(report).exists(isSafe)
 def numSafeDampenedReports(reports: Seq[Vector[Int]]): Int =
   reports.count(r => isSafe(r) || isAlmostSafe(r))
