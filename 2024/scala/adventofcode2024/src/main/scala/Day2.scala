@@ -1,37 +1,41 @@
 import scala.io.{BufferedSource, Source}
 import scala.util.Using
 
-def parse(input: BufferedSource): Seq[Report] =
-  input.getLines()
-    .map(line => line.split(" ").map(_.toInt).toVector)
-    .toSeq
-
 type Report = Seq[Int]
 
 def isSafe(report: Report): Boolean = {
-  val diffs = report.sliding(2).map(pair => pair(1) - pair(0))
-  if report.head < report.last then diffs.forall(d => 1 <= d && d <= 3) // ascending
-  else if report.head > report.last then diffs.forall(d => -3 <= d && d <= -1) // descending
-  else false
+    val diffs = report.sliding(2).map(pair => pair(1) - pair(0))
+    if report.head < report.last then
+        diffs.forall(d => 1 <= d && d <= 3) // ascending
+    else if report.head > report.last then
+        diffs.forall(d => -3 <= d && d <= -1) // descending
+    else false
 }
 def numSafeReports(reports: Seq[Report]): Int = reports.count(isSafe)
 
 def dampen(report: Report): Seq[Report] =
-  report.to(LazyList).zipWithIndex.map((_, i) => report.patch(i, Nil, 1))
+    report.to(LazyList).zipWithIndex.map((_, i) => report.patch(i, Nil, 1))
 def isAlmostSafe(report: Report): Boolean = dampen(report).exists(isSafe)
 def numSafeDampenedReports(reports: Seq[Report]): Int =
-  reports.count(r => isSafe(r) || isAlmostSafe(r))
+    reports.count(r => isSafe(r) || isAlmostSafe(r))
 
 @main def solutionDay2(): Unit = {
+    def parse(input: BufferedSource): Seq[Report] =
+        input
+            .getLines()
+            .map(line => line.split(" ").map(_.toInt).toVector)
+            .toSeq
 
-  val filePath = "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day2.txt"
-  Using(Source.fromFile(filePath)) { source =>
-    val reports = parse(source)
+    val filePath =
+        "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day2.txt"
 
-    val safeCount = numSafeReports(reports)
-    println(safeCount) // 490
+    Using(Source.fromFile(filePath)) { source =>
+        val reports = parse(source)
 
-    val dampenedSafeCount = numSafeDampenedReports(reports)
-    println(dampenedSafeCount) // 536
-  }
+        val safeCount = numSafeReports(reports)
+        println(safeCount) // 490
+
+        val dampenedSafeCount = numSafeDampenedReports(reports)
+        println(dampenedSafeCount) // 536
+    }
 }
