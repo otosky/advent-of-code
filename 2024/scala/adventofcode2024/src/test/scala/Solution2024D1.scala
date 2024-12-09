@@ -1,4 +1,4 @@
-class MySuite extends munit.FunSuite {
+class Solution2024D1 extends munit.FunSuite {
   test("distance solver") {
     val l1 = List(3,4,2,1,3,3).map(_.toLong)
     val l2 = List(4,3,5,3,9,3).map(_.toLong)
