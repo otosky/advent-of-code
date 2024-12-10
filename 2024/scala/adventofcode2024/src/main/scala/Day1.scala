@@ -23,10 +23,7 @@ def getSimilarity(l1: Seq[Long], l2: Seq[Long]): Long =
         val rights = pairs.map(_.last).toSeq.sorted
         (lefts, rights)
 
-    val filePath =
-        "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day1.txt"
-
-    Using(Source.fromFile(filePath)) { source =>
+    Using(Source.fromResource("inputs/day1.txt")) { source =>
         val (l1, l2) = parse(source)
 
         val distance = getDistance(l1, l2)

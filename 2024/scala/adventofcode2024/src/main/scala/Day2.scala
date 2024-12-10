@@ -26,10 +26,7 @@ def numSafeDampenedReports(reports: Seq[Report]): Int =
             .map(line => line.split(" ").map(_.toInt).toVector)
             .toSeq
 
-    val filePath =
-        "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day2.txt"
-
-    Using(Source.fromFile(filePath)) { source =>
+    Using(Source.fromResource("inputs/day2.txt")) { source =>
         val reports = parse(source)
 
         val safeCount = numSafeReports(reports)

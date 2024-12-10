@@ -1,4 +1,4 @@
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 import scala.util.Using
 
 def part1(s: String): Int =
@@ -23,14 +23,10 @@ def part2(s: String): Int =
     result
 
 @main def solutionDay3(): Unit = {
-    def parse(input: BufferedSource): String = input.mkString
-
-    val filePath =
-        "/home/olivertosky/personal/advent-of-code/2024/scala/adventofcode2024/src/resources/inputs/day3.txt"
-    Using(Source.fromFile(filePath)) { source =>
-        val rawText = parse(source)
+    Using(Source.fromResource("inputs/day3.txt")) { source =>
+        val rawText = source.mkString
 
         println(part1(rawText))
-
+        println(part2(rawText))
     }
 }
