@@ -1,3 +1,5 @@
+import adventofcode2024.day3._
+
 class Solution2024D3 extends munit.FunSuite {
     test("valid mult solver") {
         val s = ")mul(1,100)where()how()mul(2,10);m"

@@ -1,3 +1,5 @@
+package adventofcode2024.day3
+
 import scala.io.Source
 import scala.util.Using
 
