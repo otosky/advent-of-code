@@ -34,9 +34,20 @@ def part1(xss: Seq[Seq[Char]]): Int =
         .map(countOccurances)
         .sum
 
+def part2(xss: Seq[Seq[Char]]): Int =
+    rects(Size(3, 3), xss).count {
+        case Seq(
+              Seq(a, _, b),
+              Seq(_, c, _),
+              Seq(d, _, e)
+            ) =>
+            List(s"$a$c$e", s"$b$c$d").forall(anyway("MAS"))
+    }
+
 @main def solutionDay4(): Unit = {
     Using(Source.fromResource("inputs/day4.txt")) { source =>
         val grid = source.getLines().map(_.toVector).toVector
         println(part1(grid))
+        println(part2(grid))
     }
 }
