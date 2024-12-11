@@ -1,4 +1,4 @@
-import adventofcode2024.day4._
+import day04._
 
 class Solution2024D4 extends munit.FunSuite {
     val input =
@@ -12,12 +12,12 @@ class Solution2024D4 extends munit.FunSuite {
           |SAXAMASAAA
           |MAMMMXMMMM
           |MXMXAXMASX""".stripMargin
-        
+
     test("find xmas solver") {
-        val grid = input.linesIterator.map(_.toVector).toVector    
+        val grid = input.linesIterator.map(_.toVector).toVector
         assertEquals(part1(grid), 18)
     }
-    
+
     test("x-mas solver") {
         val input =
             """MMMSXXMASM

@@ -1,3 +1,5 @@
+import day02._
+
 class Solution2024D2 extends munit.FunSuite {
     test("report safety solver") {
         val report1 = Vector(7, 6, 4, 2, 1)

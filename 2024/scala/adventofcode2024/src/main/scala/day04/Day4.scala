@@ -1,4 +1,4 @@
-package adventofcode2024.day4
+package day04
 
 import scala.io.Source
 import scala.util.Using

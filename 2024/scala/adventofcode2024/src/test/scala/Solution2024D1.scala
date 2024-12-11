@@ -1,3 +1,5 @@
+import day01._
+
 class Solution2024D1 extends munit.FunSuite {
     test("distance solver") {
         val l1 = List(3, 4, 2, 1, 3, 3).map(_.toLong)

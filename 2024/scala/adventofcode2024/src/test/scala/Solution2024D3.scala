@@ -1,4 +1,4 @@
-import adventofcode2024.day3._
+import day03._
 
 class Solution2024D3 extends munit.FunSuite {
     test("valid mult solver") {

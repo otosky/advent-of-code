@@ -1,3 +1,5 @@
+package day02
+
 import scala.io.{BufferedSource, Source}
 import scala.util.Using
 
