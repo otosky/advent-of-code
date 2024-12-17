@@ -9,6 +9,19 @@ type Rules = Seq[Rule]
 type Page = Seq[Int]
 type Pages = Seq[Page]
 
+def parseRule(rule: String) = rule match
+    case s"$a|$b" => (a.toInt, b.toInt)
+def parseRules(rules: Iterator[String]) = rules.map(parseRule).toSeq
+def parsePage(page: String) = page.split(",").map(_.toInt).toList
+def parsePages(pages: Iterator[String]) = pages.map(parsePage).toSeq
+
+def parse(s: String): (Rules, Pages) =
+    val Array(rulesString, pagesString) = s.split("\n\n")
+    (
+      parseRules(rulesString.linesIterator),
+      parsePages(pagesString.linesIterator)
+    )
+
 def validatePage(ruleMap: Map[Int, Seq[Int]])(page: Page): Boolean =
     @tailrec
     def loop(page: Page, visited: Set[Int] = Set.empty): Boolean = page match
@@ -18,15 +31,6 @@ def validatePage(ruleMap: Map[Int, Seq[Int]])(page: Page): Boolean =
             && loop(rest, visited + num)
 
     loop(page)
-
-def parse(s: String): (Rules, Pages) =
-    val Array(rulesString, updatesString) = s.split("\n\n")
-    val rules = rulesString.linesIterator.map { case s"$fst|$snd" =>
-        (fst.toInt, snd.toInt)
-    }.toList
-    val pages =
-        updatesString.linesIterator.map(_.split(",").map(_.toInt).toList).toList
-    (rules, pages)
 
 def part1(rules: Rules, pages: Pages): Int = {
     val ruleMap = rules.groupMap(_._1)(_._2)
