@@ -28,7 +28,7 @@ def numSafeDampenedReports(reports: Seq[Report]): Int =
             .map(line => line.split(" ").map(_.toInt).toVector)
             .toSeq
 
-    Using(Source.fromResource("inputs/day2.txt")) { source =>
+    Using(Source.fromResource("inputs/day02.txt")) { source =>
         val reports = parse(source)
 
         val safeCount = numSafeReports(reports)

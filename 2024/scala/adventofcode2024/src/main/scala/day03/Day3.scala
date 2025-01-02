@@ -25,7 +25,7 @@ def part2(s: String): Int =
     result
 
 @main def solutionDay3(): Unit = {
-    Using(Source.fromResource("inputs/day3.txt")) { source =>
+    Using(Source.fromResource("inputs/day03.txt")) { source =>
         val rawText = source.mkString
 
         println(part1(rawText))

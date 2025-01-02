@@ -45,7 +45,7 @@ def part2(xss: Seq[Seq[Char]]): Int =
     }
 
 @main def solutionDay4(): Unit = {
-    Using(Source.fromResource("inputs/day4.txt")) { source =>
+    Using(Source.fromResource("inputs/day04.txt")) { source =>
         val grid = source.getLines().map(_.toVector).toVector
         println(part1(grid))
         println(part2(grid))

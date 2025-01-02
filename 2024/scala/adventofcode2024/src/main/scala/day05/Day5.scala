@@ -39,7 +39,7 @@ def part1(rules: Rules, pages: Pages): Int = {
 def part2(): Int = ???
 
 @main def solutionDay5(): Unit = {
-    Using(Source.fromResource("inputs/day5.txt")) { source =>
+    Using(Source.fromResource("inputs/day05.txt")) { source =>
         val (rules, pages) = parse(source.mkString)
         println(part1(rules, pages))
     }

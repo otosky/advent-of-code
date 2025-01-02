@@ -25,7 +25,7 @@ def getSimilarity(l1: Seq[Long], l2: Seq[Long]): Long =
         val rights = pairs.map(_.last).toSeq.sorted
         (lefts, rights)
 
-    Using(Source.fromResource("inputs/day1.txt")) { source =>
+    Using(Source.fromResource("inputs/day01.txt")) { source =>
         val (l1, l2) = parse(source)
 
         val distance = getDistance(l1, l2)
