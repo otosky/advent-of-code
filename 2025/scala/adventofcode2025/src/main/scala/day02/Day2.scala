@@ -28,9 +28,8 @@ def isInvalidId(v: String): Boolean = {
     }
 }
 
-def sumInvalidIds(ranges: Seq[(String, String)]): Long = findInvalidIds(
-  ranges
-).sum
+def sumInvalidIds(ranges: Seq[(String, String)]): Long =
+    findInvalidIds(ranges).sum
 
 @main def solution(): Unit = {
     Using(Source.fromResource("inputs/day02.txt")) { source =>
@@ -39,7 +38,6 @@ def sumInvalidIds(ranges: Seq[(String, String)]): Long = findInvalidIds(
 
         val solution1 = sumInvalidIds(lines)
         println(s"Part1 Solution: ${solution1}")
-
 
     } match {
         case Success(_) => println("Success!")
